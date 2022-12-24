@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "MCU_RaspberryPi_and_Boards")(type "KiCad")(uri "${KIPRJMOD}/KiCad-RP-Pico-main/RP-Pico Libraries/MCU_RaspberryPi_and_Boards.kicad_sym")(options "")(descr ""))
+  (lib (name "4ms_Jack")(type "KiCad")(uri "${KICAD6_3RD_PARTY}/symbols/com_github_4ms_4ms-kicad-lib/4ms_Jack.kicad_sym")(options "")(descr ""))
+)
