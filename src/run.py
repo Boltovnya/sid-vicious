@@ -1,6 +1,7 @@
 from machine import Pin, I2C
 import ssd1306
 from collections import deque
+import time
 
 
 ADDR_BUS = {
@@ -35,8 +36,8 @@ display = ssd1306.SSD1306_I2C(128, 64, i2c)
 ADDR_LEN = 5
 DATA_LEN = 8
 
-addr_reg = deque([], maxlen=ADDR_LEN)
-data_reg = deque([], maxlen=DATA_LEN)
+addr_reg = []
+data_reg = []
 
 
 def setup():
@@ -74,13 +75,15 @@ def send_gpio():
 
 
 while True:
-    while len(addr_reg) != ADDR_LEN and len(data_reg) != DATA_LEN:
+    while len(addr_reg) != ADDR_LEN:
         if len(addr_reg) != 5:
             if not key_0.value():
                 addr_callback(0)
             if not key_1.value():
                 addr_callback(1)
-            display.text = f"A: {list(addr_reg)} | D: ________"
+            display.text(f"A: {''.join(str(i) for i in addr_reg)}", 0, 0, 1)
+            display.show()
+            time.sleep(0.05)
             continue
 
         if len(data_reg) != 8:
@@ -88,7 +91,9 @@ while True:
                 data_callback(0)
             if not key_1.value():
                 data_callback(1)
-            display.text = f"A: {list(addr_reg)} | D: {list(data_reg)}"
+            display.text("D: {''.join(str(i) for i in data_reg)}", 0, 15, 2)
+            display.show()
+            time.sleep(0.05)
             continue
 
     if not key_en.value():
